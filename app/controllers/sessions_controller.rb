@@ -6,15 +6,21 @@ class SessionsController < ApplicationController
 	end
 
 	def create
-		lgi = ldap_login(params[:username], params[:password])
-		if lgi && lgi.length > 0
-			user = User.find_by_username(params[:username])
-			user = ldap_populate(params[:username], params[:password], user)
-			session[:user_id] = user.id
-			flash[:notice] = "Logged in!"
+		user = User.where(:username => params[:username]).first
+		if user
+			lgi = ldap_login(params[:username], params[:password])
+			if lgi && lgi.length > 0
+				user = User.find_by_username(params[:username])
+				user = ldap_populate(params[:username], params[:password], user)
+				session[:user_id] = user.id
+				flash[:notice] = "Logged in!"
+			else
+				flash[:alert] = "Invalid login."
+				redirect_to '/sessions/new'
+			end
 		else
-			flash[:alert] = "Invalid login."
-			redirect_to '/sessions/new'
+				flash[:alert] = "You are not allowed to log in."
+				redirect_to '/'
 		end
 	end
 

@@ -1,29 +1,14 @@
 Proctor::Application.routes.draw do
+  resources :payments
+
+  resources :students
+
+  resources :exams
+  resources :users
+
   post "sessions/create"
 
-  resources :permissions
-
-  resources :groups
-
-  get "principals/index"
-
-  get "principals/edit"
-
-  get "principals/update"
-
-  get "principals/destroy"
-
-  get "users/index"
-
-  get "users/edit"
-
-  get "users/update"
-
-  get "users/destroy"
-
   get "sessions/new"
-
-  get "sessions/create"
 
   get "sessions/destroy"
 

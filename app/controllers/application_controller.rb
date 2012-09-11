@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+
+
   
   private
   def current_user  
@@ -17,5 +19,5 @@ class ApplicationController < ActionController::Base
   
   def check_for_admin
     redirect_to '/home/index' unless current_user && current_user.admin?
-  en
+  end
 end
