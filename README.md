@@ -1,7 +1,7 @@
 Proctor
 =========
 
-What does this thing do again?
+AP test management & whatnot.
 
 How To
 ------
