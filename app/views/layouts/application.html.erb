@@ -36,54 +36,49 @@
 	</head>
 	<body>
 
-		<div class="navbar navbar-fixed-top">
-			<div class="navbar-inner">
-				<div class="container">
-					<a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</a>
-					<a class="brand" href="#">Proctor</a>
-					<div class="container nav-collapse">
-						<ul class="nav">
-							<li><%= link_to "Link1", "/path1"  %></li>
-							<li><%= link_to "Link2", "/path2"  %></li>
-							<li><%= link_to "Link3", "/path3"  %></li>
-						</ul>
-					</div><!--/.nav-collapse -->
-				</div>
-			</div>
-		</div>
-
 		<div class="container">
 			<div class="content">
 				<div class="row">
+					<div class="span3">
+						<div class="well sidebar-nav">
+							<ul class="nav nav-list">
+								
+								<% if current_user %>
+									<li class="nav-header"><%= link_to "Reporting", '/' %></li>
+									<li><%= link_to "Generate Schedules", '/report/tickets' %></li>
+									<li><%= link_to "Attendance Lists", '/report/attendance' %></li>
+									<li><%= link_to "Unpaid Students", '/report/unpaid' %></li>
+									<li><%= link_to "Exam List", '/report/exams' %></li>
+									<li class="divider"></li>
+									<li class="nav-header"><%= link_to "Exams", exams_path %></li>
+									<li class="divider"></li>
+									<li class="nav-header"><%= link_to "Students", students_path %></li>
+									<li><%= link_to "Import Students", import_students_path %></li>
+									<li class="divider"></li>
+									<li><%= link_to "Manage Users", users_path %></li>
+									<li><%= link_to "Formatting Help", "http://www.simpleeditions.com/59001/markdown-an-introduction", :target => '_blank' %></li>
+									<li class="divider"></li>
+									<li><%= link_to "Log Out", '/sessions/destroy' %></li>
+								<% else %>
+									<li><%= link_to "Manager Log In", 'sessions/new' %></li>
+								<% end %>
+							</ul>
+						</div><!--/.well -->
+					</div><!--/span-->
 					<div class="span9">
 						<% flash.each do |type, message| %>
-							<div class="alert alert-<%= twitterized_type type %>" data-alert="alert">
+							<div class="alert alert-<%= twitterized_type type %>" data-alert="alert" style="width: 300px; margin: auto; margin-bottom: 10px;">
 								<a href="#"i class="close" data-dismiss="alert">&times;</a>
 								<p><%= message %></p>
 							</div>
 						<% end %>
 						<%= yield %>
 					</div>
-					<div class="span3">
-						<div class="well sidebar-nav">
-							<h3>Sidebar</h3>
-							<ul class="nav nav-list">
-								<li class="nav-header">Sidebar</li>
-								<li><%= link_to "Link1", "/path1"  %></li>
-								<li><%= link_to "Link2", "/path2"  %></li>
-								<li><%= link_to "Link3", "/path3"  %></li>
-							</ul>
-						</div><!--/.well -->
-					</div><!--/span-->
+					
 				</div><!--/row-->
 			</div><!--/content-->
-
-			<footer>
-			<p>&copy; Company 2012</p>
+			<footer style="text-align: right;">
+			<p><i>Created by Brad Thompson, WLCSC Technology Department</i> - Generated <%= nice_datetime Time.now %></p>
 			</footer>
 
 		</div> <!-- /container -->
@@ -92,6 +87,16 @@
 		================================================== -->
 		<!-- Placed at the end of the document so the pages load faster -->
 		<%= javascript_include_tag "application" %>
+		<%= javascript_tag do %>
+$('.datatable').dataTable({
+"sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
+"bPaginate": false,
+	       "bLengthChange": false,
+	       "bFilter": true,
+	       "bSort": true,
+	       "bInfo": false
+});
 
+		<% end %>
 	</body>
 </html>

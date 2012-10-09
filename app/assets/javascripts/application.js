@@ -13,4 +13,32 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
+//= require dataTables/jquery.dataTables
+//= require dataTables/jquery.dataTables.bootstrap
 //= require_tree .
+//
+var discount_value;
+function disableDiscount() {
+	document.getElementById('enrollment_discount').disabled = true;
+	document.getElementById('enrollment_discount').checked = false;
+}	
+function enableDiscount() {
+	document.getElementById('enrollment_discount').disabled = false;
+}
+function toggleDiscount() {
+	if(document.getElementById('enrollment_discount').disabled) {
+		document.getElementById('enrollment_discount').disabled = false;
+		document.getElementById('enrollment_discount').checked = discount_value;
+	}else{
+		discount_value = document.getElementById('enrollment_discount').checked;
+		document.getElementById('enrollment_discount').disabled = true;
+		document.getElementById('enrollment_discount').checked = false;
+	}
+}
+
+function checkAll(field)
+{
+for (i = 0; i < field.length; i++)
+	field[i].checked = true ;
+}
+

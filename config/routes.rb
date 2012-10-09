@@ -1,7 +1,27 @@
 Proctor::Application.routes.draw do
+  get "enrollments/create"
+
+  get "enrollments/destroy"
+
+  get "report/index"
+  get 'report/tickets'
+  post 'report/tickets'
+  get 'report/attendance'
+  post 'report/attendance'
+  get 'report/unpaid'
+  post 'report/unpaid'
+  get 'report/exams'
+  post 'report/exams'
+
   resources :payments
 
-  resources :students
+  resources :students do
+	get 'import', :on => :collection
+	post 'import', :on => :collection
+	post 'operate', :on => :collection
+  end
+
+  resources :enrollments
 
   resources :exams
   resources :users
@@ -61,7 +81,7 @@ Proctor::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'report#index'
 
   # See how all your routes lay out with "rake routes"
 

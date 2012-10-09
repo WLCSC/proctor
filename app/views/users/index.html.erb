@@ -1,14 +1,25 @@
-<h1>User List</h1>
+<h1>Authorized User List</h1>
 
 <table class="table table-striped">
 	<thead>
 		<th>User</th>
+		<th>Username</th>
 	</thead>
 	<tbody>
 		<% @users.each do |user| %>
 			<tr>
-				<td><%= user.name %></td>
+				<td><%= user.name || "<i>Unknown</i>".html_safe %></td>
+				<td><%= user.username %></td>
 			</tr>
 		<% end %>
 	</tbody>
 </table>
+
+<div class="well">
+	<h3>Add a User</h3>
+	<%= form_for User.new, :html => {:class => 'form-inline'} do |f| %>
+		<%= f.label :username %>
+		<%= f.text_field :username %>
+		<%= f.submit "OK", :class => 'btn btn-primary' %>
+	<% end %>
+</div>

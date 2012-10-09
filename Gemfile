@@ -45,3 +45,4 @@ gem "twitter-bootstrap-rails"
 gem "exception_notification", :require => "exception_notifier"
 gem "bluecloth"
 gem "mysql2"
+gem 'jquery-datatables-rails'

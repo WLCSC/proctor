@@ -1,7 +1,13 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+def sql_compare_symbol name
+		{'>' => :gt, '>=' => :gte, '=' => :eq, '<=' => :lte, '<' => :lt}.index name.to_sym
+	end
 
+def ruby_compare_symbol name
+		{'>' => :gt, '>=' => :gte, '==' => :eq, '<=' => :lte, '<' => :lt}.index name.to_sym
+	end
   
   private
   def current_user  

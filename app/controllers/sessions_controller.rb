@@ -14,6 +14,7 @@ class SessionsController < ApplicationController
 				user = ldap_populate(params[:username], params[:password], user)
 				session[:user_id] = user.id
 				flash[:notice] = "Logged in!"
+				redirect_to '/'
 			else
 				flash[:alert] = "Invalid login."
 				redirect_to '/sessions/new'
