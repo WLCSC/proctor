@@ -130,6 +130,7 @@ module ApplicationHelper
 	end
 
 	def dollars amt
+		amt ||= 0
 		if amt >= 0
 			number_to_currency amt
 		else

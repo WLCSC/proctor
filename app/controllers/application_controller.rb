@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+	before_filter :check_for_user
+
 def sql_compare_symbol name
 		{'>' => :gt, '>=' => :gte, '=' => :eq, '<=' => :lte, '<' => :lt}.index name.to_sym
 	end
@@ -20,10 +22,10 @@ def ruby_compare_symbol name
   end
   
   def check_for_user
-    redirect_to '/sessions/new' unless current_user
+    redirect_to '/' unless current_user
   end
   
   def check_for_admin
-    redirect_to '/home/index' unless current_user && current_user.admin?
+    redirect_to '/' unless current_user && current_user.admin?
   end
 end

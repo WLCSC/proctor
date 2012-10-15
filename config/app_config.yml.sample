@@ -12,6 +12,10 @@ development:
   email_support_from: support@nowhere
   #who gets exception notifications?
   email_support_recipients: support@nowhere
+	#can students enroll themselves in exams?
+	exam_self_enroll: true
+	#can students who don't exist yet add themselves to the system?
+	exam_self_create: true
   
 test:
   domain: test.host

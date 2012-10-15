@@ -42,7 +42,9 @@
 					<div class="span3">
 						<div class="well sidebar-nav">
 							<ul class="nav nav-list">
-								
+								<% if APP_CONFIG[:exam_self_enroll] %>
+									<li><%= link_to "Self Enrollment", self_students_path %></li>
+								<% end %>
 								<% if current_user %>
 									<li class="nav-header"><%= link_to "Reporting", '/' %></li>
 									<li><%= link_to "Generate Schedules", '/report/tickets' %></li>
