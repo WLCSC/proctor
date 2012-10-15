@@ -42,7 +42,7 @@
 					<div class="span3">
 						<div class="well sidebar-nav">
 							<ul class="nav nav-list">
-								<% if APP_CONFIG[:exam_self_enroll] %>
+								<% if APP_CONFIG[:exam_self_enroll] && !current_user %>
 									<li><%= link_to "Self Enrollment", self_students_path %></li>
 								<% end %>
 								<% if current_user %>
@@ -62,7 +62,7 @@
 									<li class="divider"></li>
 									<li><%= link_to "Log Out", '/sessions/destroy' %></li>
 								<% else %>
-									<li><%= link_to "Manager Log In", 'sessions/new' %></li>
+									<li><%= link_to "Manager Log In", '/sessions/new' %></li>
 								<% end %>
 							</ul>
 						</div><!--/.well -->
