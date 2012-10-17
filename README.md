@@ -7,10 +7,9 @@ How To
 ------
 * bundle install
 * edit/create config/database.yml & config/app_config.yml
-* edit config/initializers/setup_mail.rb with your mail server details
 * rake db:setup
 
-This requires LDAP for user authentication.  Users don't exist inside Proctor until they log in.  
+This can use LDAP and/or a local set of users for authentication.  Users have to exist before they can log in, which means you need to manually create at least 1 user in your database before you can get in.
 
     Proctor is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
