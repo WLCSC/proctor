@@ -1,0 +1,125 @@
+<div class="page-header">
+  <h1>All Students</h1>
+</div>
+
+
+<% content_for :students do%>
+	
+<table class="table table-striped datatable">
+  <thead>
+	  <tr>
+		  <th><a href="#" id="checkall" class="btn btn-mini btn-danger" onClick="checkAll(document.stform.student_ids_);"><%= i('ok') %></a></th>
+      <th>Name</th>
+      <th>Balance</th>
+      <th># of exams</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @students.each do |student| %>
+	    <tr>
+		    <td><%= check_box_tag "student_ids[]", student.id %></td>
+        <td><%= link_to student.name, student %></td>
+	<td><%= dollars student.balance %></td>
+	<td><%= student.exams.where(:real => true).length %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% end %>
+
+<% content_for :filter do %>
+	<h4>Filter:</h4>
+	<%= form_tag operate_students_path, :class => "form-horizontal" do |f| %>
+		<div class="control-group">
+			<%= label_tag :name, "Name", :class => "control-label" %>
+			<div class="controls">
+				<%= text_field_tag :name, '', :class => 'input-medium' %>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<%= label_tag :Balance, "Balance", :class => "control-label" %>
+			<div class="controls">
+				<%= select_compare :balance_comp%>
+				<%= text_field_tag :balance,'', :class => 'input-small' %>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<%= label_tag :exams, "# of Exams", :class => "control-label" %>
+			<div class="controls">
+				<%= select_compare :exams_comp%>
+				<%= text_field_tag :exams,'', :class => 'input-small' %>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<%= label_tag :real, "# of Real Exams", :class => "control-label" %>
+			<div class="controls">
+				<%= select_compare :real_comp%>
+				<%= text_field_tag :real,'', :class => 'input-small' %>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<%= label_tag :attend, "# of Exams Attending", :class => "control-label" %>
+			<div class="controls">
+				<%= select_compare :attend_comp%>
+				<%= text_field_tag :attend,'', :class => 'input-small' %>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<%= label_tag :reduced, "Free/Reduced Status", :class => "control-label" %>
+			<div class="controls">
+				<%= check_box_tag :reduced %>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<div class="controls">
+				<%= submit_tag "Filter", :class => 'btn btn-primary' %>
+			</div>
+		</div>
+	<% end %>
+<% end %>
+
+<% content_for :operations do %>
+	<div class="form-horizontal">
+	<div class="control-group">
+		<div class="controls">
+			<%= radio_button_tag 'op', :enroll_on %>
+			<span>Enroll selected students in:</span>
+			<%= select_tag :enroll, options_for_select(Exam.all.map{|e| [e.name, e.id]}) %>
+		</div>
+		<div class="controls">
+			<%= radio_button_tag 'op',:remove_on %>
+			<span>Remove selected students from:</span>
+			<%= select_tag :remove, options_for_select(Exam.all.map{|e| [e.name, e.id]}) %>
+		</div>
+		<div class="controls">
+			<%= radio_button_tag 'op', :schedules_on %>
+			<span>Generate schedules for selected students</span>
+		</div>
+		<div class="controls">
+			<%= radio_button_tag 'op', :bill_on %>
+			<span>Generate payment info for selected students</span>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<%= submit_tag "Perform Selected Operations", :class => 'btn btn-warning' %>
+			</div>
+		</div>
+	</div>
+</div>
+		
+<% end %>
+
+<%= form_tag '/students/operate', :name => 'stform' do %>
+<%= tabify students: "Students", filter: "Filter", operations: "Operations" %>
+<% end %>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_student_path,
+	    :class => 'btn btn-primary' %>

@@ -8,18 +8,37 @@
 	<tbody>
 		<% @users.each do |user| %>
 			<tr>
-				<td><%= user.name || "<i>Unknown</i>".html_safe %></td>
+				<td><%= user.name || "<i>Unknown</i>".html_safe %><%= i 'bookmark' if user.email_address %></td>
 				<td><%= user.username %></td>
+				<td><%= link_to "Remove", user, :method => :delete, :confirm => "Really delete #{user.name}?", :class => 'btn btn-mini btn-danger' %></td>
 			</tr>
 		<% end %>
 	</tbody>
 </table>
 
+<% if APP_CONFIG[:auth_ldap] %>
 <div class="well">
-	<h3>Add a User</h3>
+	<h3>Add an LDAP Authenticated User</h3>
 	<%= form_for User.new, :html => {:class => 'form-inline'} do |f| %>
 		<%= f.label :username %>
 		<%= f.text_field :username %>
 		<%= f.submit "OK", :class => 'btn btn-primary' %>
 	<% end %>
 </div>
+<% end %>
+<% if APP_CONFIG[:auth_local] %>
+<div class="well">
+	<h3>Add a Locally Authenticated User</h3>
+	<%= form_for User.new, :html => {:class => 'form-inline'} do |f| %>
+		<%= f.label :username %>
+		<%= f.text_field :username %><br/>
+		<%= f.label :name %>
+		<%= f.text_field :name %><br/>
+		<%= f.label :email_address %>
+		<%= f.text_field :email_address %><br/>
+		<%= f.label :password %>
+		<%= f.password_field :password %><br/>
+		<%= f.submit "OK", :class => 'btn btn-primary' %>
+	<% end %>
+</div>
+<% end %>

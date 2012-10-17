@@ -1,0 +1,26 @@
+<%- model_class = Exam -%>
+<div class="page-header">
+  <h1>All Exams</h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Date</th>
+      <th>Session</th>
+      <th>Cost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @exams.each do |exam| %>
+      <tr>
+	      <td><% unless exam.real %> <%= i('asterisk') %> <% end %><%= link_to exam.name, exam %></td>
+        <td><%= nice_date exam.date %></td>
+        <td><%= exam.session %></td>
+        <td><%= dollars (exam.cost || 0) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Add Exam", new_exam_path, :class => 'btn btn-primary' %>

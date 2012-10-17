@@ -1,0 +1,58 @@
+<div class="form-actions">
+	<%= form_tag '/report/exams' do %>
+		<table>
+			<tr>
+				<td>
+					<%= label_tag :top, "Stuff above student list" %>
+					<%= text_area_tag :top, @top %><br/>
+				</td>
+				<td>
+					<%= label_tag :bottom, "Stuff under student list" %>
+					<%= text_area_tag :bottom, @bottom %><br/>
+				</td>
+				<td>
+					<%= label_tag :checks, "Add checkboxes" %>
+					<%= check_box_tag :checks, false, @checks %><br/>
+				</td>
+				<td>
+					<%= label_tag :checks, "Include Limit info" %>
+					<%= check_box_tag :limits, false, @checks %><br/>
+				</td>
+			</tr>
+		</table>
+		<%= submit_tag "Regenerate", :class => 'btn btn-warning' %>
+	<% end %>	
+</div>
+<h2>Exam List</h2>
+<%= markdown @top %>
+<table class="table table-condensed table-bordered table-striped">
+	<thead>
+		<% if @checks %><th><%= check_box_tag :x, true, true %></th><% end %>
+		<th width="30%">Exam</th>
+		<th width="22%">Date</th>
+		<th width="8%">Session</th>
+		<th width="5%">Cost</th>
+		<% if @limits %>
+			<th>Enrolled</th>
+			<th>Limit</th>
+		<% end %>
+		<th>Description</th>
+	</thead>
+	<% @exams.each do |exam| %>
+		<tr>
+			<% @exam = exam %>
+			<% if @checks %><td><%= check_box_tag :e %></td><% end %>
+			<td><%= @exam.name %></td>
+			<td><%= nice_date @exam.date %></td>
+			<td><%= @exam.session %></td>
+			<td><%= dollars @exam.cost %></td>
+			<% if @limits %>
+				<td><%= @exam.enrollments.count %></td>
+				<td><%= @exam.limit == 0 ? "None" : @exam.limit %></td>
+			<% end %>
+			<td><%= markdown @exam.description %></td>
+		</tr>
+	<% end %>
+</table>
+
+<%= markdown @bottom %>

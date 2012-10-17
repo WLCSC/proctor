@@ -1,0 +1,31 @@
+<%= form_for @student, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :balance, :class => 'control-label' %>
+    <div class="controls">
+	    <% if @student.balance %>
+		<%= dollars @student.balance %>
+	    <% else %>
+		    <%= f.text_field :balance, :class => 'text_field' %>
+	    <% end %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :frl, "Free/Reduced", :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :frl %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                students_path, :class => 'btn' %>
+  </div>
+<% end %>

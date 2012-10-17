@@ -1,0 +1,132 @@
+@import "twitter/bootstrap/bootstrap";
+body { 
+	padding-top: 20px;
+}
+
+@import "twitter/bootstrap/responsive";
+
+// Set the correct sprite paths
+@iconSpritePath: asset-path('twitter/bootstrap/glyphicons-halflings.png');
+@iconWhiteSpritePath: asset-path('twitter/bootstrap/glyphicons-halflings-white.png');
+
+// Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
+// Note: If you use asset_path() here, your compiled boostrap_and_overrides.css will not 
+//       have the proper paths. So for now we use the absolute path.
+//@fontAwesomeEotPath: '/assets/fontawesome-webfont.eot';
+//@fontAwesomeWoffPath: '/assets/fontawesome-webfont.woff';
+//@fontAwesomeTtfPath: '/assets/fontawesome-webfont.ttf';
+//@fontAwesomeSvgPath: '/assets/fontawesome-webfont.svg';
+
+// Font Awesome
+//@import "fontawesome";
+
+// Your custom LESS stylesheets goes here
+//
+// Since bootstrap was imported above you have access to its mixins which
+// you may use and inherit here
+//
+// If you'd like to override bootstrap's own variables, you can do so here as well
+// See http://twitter.github.com/bootstrap/less.html for their names and documentation
+//
+// Example:
+// @linkColor: #ff0000;
+
+.nav > li > a:hover {
+	color: black;
+}
+
+.btn-primary {
+	color: white !important;
+}
+
+.btn-danger {
+	color: white !important;
+}
+
+.btn-inverse {
+	color: white !important;
+}
+
+.neg {
+	font-weight: bold;
+	color: red;
+}
+
+.tab-pane {
+	padding: 10px;
+	background-color: #eee;
+}
+
+.tab-content {
+	margin-bottom: 10px;
+}
+
+.break {
+	page-break-after: always;
+	width: 100%;
+	border-top: thick dashed #aaa;
+}
+
+.form-horizontal .controls {
+	margin-bottom: 10px;
+}
+
+.table td {
+	vertical-align: middle !important;
+}
+
+@media print {
+	.break {
+		border: none;
+	}
+
+	.span3 {
+		display: none;
+	}
+
+	.form-actions {
+		display: none;
+		content: "";
+	}
+
+	footer p i {
+		display: none;
+	}
+
+	.tab-pane {
+		background-color: white;
+	}
+
+	.page-header {
+		margin-bottom: 0px;
+	}
+
+	.span9 {
+		width: 90%;
+	}
+
+	.nav-tabs > .active > a {
+		font-weight: bold;
+		color: white;
+		background-color: #444;
+		border: 3px solid black;
+		border-bottom: none;
+	}
+
+	.nav-tabs > li > a {
+		background-color: #ddd;
+		border: 2px solid black;
+		border-bottom: none;
+		color: #666;
+	}
+
+	.btn {
+		background-color: #ddd !important;
+		background-image: none;
+		color: black !important;
+	}
+
+	.dataTables_filter {
+		display: none;
+	}	
+}
