@@ -1,4 +1,6 @@
 Proctor::Application.routes.draw do
+  resources :configurations
+
 	get "enrollments/create"
 
 	get "enrollments/destroy"
