@@ -1,6 +1,8 @@
 class ReportController < ApplicationController
 	skip_before_filter :check_for_user, :only => :index
   def index
+		@exams = Exam.where(:self_enrollable => true)
+		@locked = self_locked?
   end
 
   def tickets
@@ -29,4 +31,16 @@ class ReportController < ApplicationController
 	@checks = params[:checks] || nil
 	@limits = params[:limits] || nil
   end
+
+	def lock
+		if params[:commit] == "Lock Self Enrollment Section"
+			self_lock
+		end
+
+		if params[:commit] == "Unlock Self Enrollment Section"
+			self_unlock
+		end
+
+		@locked = self_locked?
+	end
 end

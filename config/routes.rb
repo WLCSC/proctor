@@ -1,6 +1,4 @@
 Proctor::Application.routes.draw do
-  resources :configurations
-
 	get "enrollments/create"
 
 	get "enrollments/destroy"
@@ -14,6 +12,8 @@ Proctor::Application.routes.draw do
 	post 'report/unpaid'
 	get 'report/exams'
 	post 'report/exams'
+	get 'report/lock'
+	post 'report/lock'
 
 	resources :payments
 
@@ -23,6 +23,7 @@ Proctor::Application.routes.draw do
 		post 'operate', :on => :collection
 		get 'self', :on => :collection
 		post 'self', :on => :collection
+		get 'email', :on => :member
 	end
 
 	resources :enrollments

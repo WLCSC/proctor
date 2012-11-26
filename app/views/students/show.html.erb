@@ -67,6 +67,8 @@
 			<% end %>
 		</tbody>
 	</table>
+
+	<%= link_to "Send Enrollment Email", email_student_path(@student), :class => 'btn btn-warning' %>
 <% end %>
 
 <% content_for :enroll do %>
@@ -108,6 +110,10 @@
 		<tr>
 			<td>Name</td>
 			<td><%= @student.name %></td>
+		</tr>
+		<tr>
+			<td>Email</td>
+			<td><%= @student.email %></td>
 		</tr>
 		<tr>
 			<td>Balance</td>

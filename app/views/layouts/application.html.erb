@@ -42,6 +42,7 @@
 					<div class="span3">
 						<div class="well sidebar-nav">
 							<ul class="nav nav-list">
+									<li class="nav-header"><%= link_to "Home", '/' %></li>
 								<% if APP_CONFIG[:exam_self_enroll] && !current_user %>
 									<li><%= link_to "Self Enrollment", self_students_path %></li>
 								<% end %>
@@ -53,6 +54,7 @@
 									<li><%= link_to "Exam List", '/report/exams' %></li>
 									<li class="divider"></li>
 									<li class="nav-header"><%= link_to "Exams", exams_path %></li>
+									<li><%= link_to "Lock/Unlock Self Enrollment", '/report/lock' %></li>
 									<li class="divider"></li>
 									<li class="nav-header"><%= link_to "Students", students_path %></li>
 									<li><%= link_to "Import Students", import_students_path %></li>

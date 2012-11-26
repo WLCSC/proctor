@@ -1,5 +1,39 @@
 <div class="well" style="text-align: right;">
-	<h2>Welcome to Proctor</h2>
-	<h4><i>Your Enrollment Management Solution</i></h4>
+	<h1>Robotics Sign Up</h1>
+
+	<table class="table">
+		<tr>
+			<% if @locked %>
+				<td><%= link_to "Sign Up is Closed", root_path, :class => 'btn btn-large btn-danger btn-block disabled' %></td>
+			<% else %>
+				<td><%= link_to "Sign Up Here", self_students_path, :class => 'btn btn-large btn-primary btn-block' %></td>
+			<% end %>
+			<td><%= link_to "Manager Log In", '/sessions/new', :class => 'btn btn-large btn-inverse btn-block' %></td>
+		</tr>
+	</table>
+
+	<table class="table table-condensed table-bordered table-striped">
+		<thead>
+			<th colspan="5" style="text-align: center;"><h3>Sessions</h3></th>
+		</thead>
+		<thead>
+			<th width="27%">Session</th>
+			<th width="5%">Cost</th>
+			<th width="5%">Students</th>
+			<th>Limit</th>
+			<th>Description</th>
+		</thead>
+		<% @exams.each do |exam| %>
+			<tr <%= 'style="background-color: #999; color: #555;"'.html_safe if exam.enrollments.count >= exam.limit && exam.limit != 0 %>>
+				<% @exam = exam %>
+				<td><%= @exam.name %><%= '<span style="color: #f00; font-weight: bold"> - FULL</span>'.html_safe if exam.enrollments.count >= exam.limit && exam.limit != 0%></td>
+				<td><%= dollars @exam.cost %></td>
+				<td><%= @exam.enrollments.count %></td>
+				<td><%= @exam.limit == 0 ? "None" : @exam.limit %></td>
+				<td><%= markdown @exam.description %></td>
+			</tr>
+		<% end %>
+	</table>
+
 </div>
 
