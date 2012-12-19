@@ -193,8 +193,15 @@ class StudentsController < ApplicationController
 		@exams = Exam.all
 		if params[:student_name]
 			if APP_CONFIG[:exam_self_create]
-				@student = Student.find_or_create_by_name(params[:student_name])
-				@student.balance ||= 0
+				if APP_CONFIG[:exam_self_remove]
+					@student = Student.find_or_create_by_name(params[:student_name])
+					@student.balance ||= 0
+				else
+					if @student = Student.where(:name => params[:student_name]).first && params[:exam].empty?
+						redirect_to root_path, :notice => 'You are unable to re-enter the system.'
+						return
+					end
+				end
 			else
 				@student = Student.where(:name => params[:student_name])
 				redirect_to root_path, :notice => "The administrator has disabled student creation" unless @student
