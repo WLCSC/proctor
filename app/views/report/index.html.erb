@@ -8,7 +8,14 @@
 			<% else %>
 				<td><%= link_to "Sign Up Here", self_students_path, :class => 'btn btn-large btn-primary btn-block' %></td>
 			<% end %>
-			<td><%= link_to "Manager Log In", '/sessions/new', :class => 'btn btn-large btn-inverse btn-block' %></td>
+			<% if !current_user %><td><%= link_to "Manager Log In", new_session_path, :class => 'btn btn-large btn-inverse btn-block' %></td><% end %>
+			<% if current_user %>
+			<td><%= link_to "Exam List", exams_path, :class => 'btn btn-large btn-info btn-block' %></td>
+			<td><%= link_to "Enrollment Counts", report_attendance_path, :class => 'btn btn-large btn-success btn-block' %></td>
+			<td><%= link_to "Student List", students_path, :class => 'btn btn-large btn-warning btn-block' %></td>
+			<td><%= link_to "Managers", users_path, :class => 'btn btn-large btn-inverse btn-block' %></td>
+			<td><%= link_to "Lock/Unlock", report_lock_path, :class => 'btn btn-large btn-danger btn-block' %></td>
+			<% end %>
 		</tr>
 	</table>
 

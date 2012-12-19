@@ -120,10 +120,12 @@
 		
 <% end %>
 
-<%= form_tag '/students/operate', :name => 'stform' do %>
+<%= form_tag operate_students_path, :name => 'stform' do %>
 <%= tabify students: "Students", filter: "Filter", operations: "Operations" %>
 <% end %>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_student_path,
-	    :class => 'btn btn-primary' %>
+						:class => 'btn btn-primary' %>
+
+<%= link_to (i('fire') + " Master Reset").html_safe, report_reset_path, :class => 'btn btn-danger' %>

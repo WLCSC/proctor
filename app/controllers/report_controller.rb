@@ -43,4 +43,18 @@ class ReportController < ApplicationController
 
 		@locked = self_locked?
 	end
+
+	def reset
+		if params[:commit] == "Wipe all students & exams"
+		Student.all.each do |s|
+			s.delete
+		end
+
+		Exam.all.each do |e|
+			e.delete
+		end	
+
+		redirect_to root_path, :notice => "Wiped students & exams"
+		end
+	end
 end
