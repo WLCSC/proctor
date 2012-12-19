@@ -12,7 +12,7 @@
 		<% end %>
 			<% if !current_user %><td><%= link_to "Manager Log In", new_session_path, :class => 'btn btn-large btn-inverse btn-block' %></td><% end %>
 			<% if current_user %>
-			<td><%= link_to "Exam List", exams_path, :class => 'btn btn-large btn-info btn-block' %></td>
+			<td><%= link_to "#{ APP_CONFIG[:site_exam].capitalize || "Exam" } List", exams_path, :class => 'btn btn-large btn-info btn-block' %></td>
 			<td><%= link_to "Enrollment Counts", report_attendance_path, :class => 'btn btn-large btn-success btn-block' %></td>
 			<td><%= link_to "Student List", students_path, :class => 'btn btn-large btn-warning btn-block' %></td>
 			<td><%= link_to "Managers", users_path, :class => 'btn btn-large btn-inverse btn-block' %></td>
@@ -23,10 +23,10 @@
 
 	<table class="table table-condensed table-bordered">
 		<thead>
-			<th colspan="5" style="text-align: center;"><h3><%= APP_CONFIG[:site_exam].capitalize || "Something"  %> list</h3></th>
+			<th colspan="5" style="text-align: center;"><h3><%= APP_CONFIG[:site_exam].capitalize || "Exam"  %> list</h3></th>
 		</thead>
 		<thead>
-			<th width="27%">Exam</th>
+			<th width="27%"><%= APP_CONFIG[:site_exam].capitalize || "Exam" %></th>
 			<th width="5%">Cost</th>
 			<th width="5%">Students</th>
 			<th>Limit</th>
