@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121017151113) do
+ActiveRecord::Schema.define(:version => 20121029184438) do
 
   create_table "enrollments", :force => true do |t|
     t.integer  "exam_id"
@@ -28,13 +28,14 @@ ActiveRecord::Schema.define(:version => 20121017151113) do
     t.string   "name"
     t.date     "date"
     t.integer  "session"
-    t.decimal  "cost",        :precision => 6, :scale => 2
+    t.decimal  "cost",            :precision => 6, :scale => 2
     t.text     "description"
     t.boolean  "real"
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
-    t.decimal  "discount",    :precision => 6, :scale => 2
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
+    t.decimal  "discount",        :precision => 6, :scale => 2
     t.integer  "limit"
+    t.boolean  "self_enrollable"
   end
 
   create_table "payments", :force => true do |t|
@@ -53,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20121017151113) do
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
     t.boolean  "frl"
+    t.string   "email"
   end
 
   create_table "users", :force => true do |t|

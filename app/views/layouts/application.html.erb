@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title><%= content_for?(:title) ? yield(:title) : "Proctor" %></title>
+		<title><%= content_for?(:title) ? yield(:title) : "WLCSC Robotics Sign Up" %></title>
 		<%= csrf_meta_tags %>
 
 		<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
@@ -14,25 +14,6 @@
 
 		<%= stylesheet_link_tag "application", :media => "all" %>
 
-		<!-- For third-generation iPad with high-resolution Retina display: -->
-		<!-- Size should be 144 x 144 pixels -->
-		<%= favicon_link_tag 'images/apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
-
-		<!-- For iPhone with high-resolution Retina display: -->
-		<!-- Size should be 114 x 114 pixels -->
-		<%= favicon_link_tag 'images/apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114' %>
-
-		<!-- For first- and second-generation iPad: -->
-		<!-- Size should be 72 x 72 pixels -->
-		<%= favicon_link_tag 'images/apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72' %>
-
-		<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
-		<!-- Size should be 57 x 57 pixels -->
-		<%= favicon_link_tag 'images/apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
-
-		<!-- For all other devices -->
-		<!-- Size should be 32 x 32 pixels -->
-		<%= favicon_link_tag 'images/favicon.ico', :rel => 'shortcut icon' %>
 	</head>
 	<body>
 
@@ -42,17 +23,19 @@
 					<div class="span3">
 						<div class="well sidebar-nav">
 							<ul class="nav nav-list">
+									<li class="nav-header"><%= link_to "Home", root_path %></li>
 								<% if APP_CONFIG[:exam_self_enroll] && !current_user %>
 									<li><%= link_to "Self Enrollment", self_students_path %></li>
 								<% end %>
 								<% if current_user %>
-									<li class="nav-header"><%= link_to "Reporting", '/' %></li>
-									<li><%= link_to "Generate Schedules", '/report/tickets' %></li>
-									<li><%= link_to "Attendance Lists", '/report/attendance' %></li>
-									<li><%= link_to "Unpaid Students", '/report/unpaid' %></li>
-									<li><%= link_to "Exam List", '/report/exams' %></li>
+									<li class="nav-header"><%= link_to "Reporting", root_path %></li>
+									<li><%= link_to "Generate Schedules", report_tickets_path %></li>
+									<li><%= link_to "Attendance Lists", report_attendance_path %></li>
+									<li><%= link_to "Unpaid Students", report_unpaid_path %></li>
+									<li><%= link_to "Exam List", report_exams_path %></li>
 									<li class="divider"></li>
 									<li class="nav-header"><%= link_to "Exams", exams_path %></li>
+									<li><%= link_to "Lock/Unlock Self Enrollment", report_lock_path %></li>
 									<li class="divider"></li>
 									<li class="nav-header"><%= link_to "Students", students_path %></li>
 									<li><%= link_to "Import Students", import_students_path %></li>
@@ -60,9 +43,9 @@
 									<li><%= link_to "Manage Users", users_path %></li>
 									<li><%= link_to "Formatting Help", "http://www.simpleeditions.com/59001/markdown-an-introduction", :target => '_blank' %></li>
 									<li class="divider"></li>
-									<li><%= link_to "Log Out", '/sessions/destroy' %></li>
+									<li><%= link_to "Log Out", delete_sessions_path %></li>
 								<% else %>
-									<li><%= link_to "Manager Log In", '/sessions/new' %></li>
+									<li><%= link_to "Manager Log In", new_session_path %></li>
 								<% end %>
 							</ul>
 						</div><!--/.well -->

@@ -12,6 +12,10 @@ Proctor::Application.routes.draw do
 	post 'report/unpaid'
 	get 'report/exams'
 	post 'report/exams'
+	get 'report/lock'
+	post 'report/lock'
+	get 'report/reset'
+	post 'report/reset'
 
 	resources :payments
 
@@ -21,18 +25,16 @@ Proctor::Application.routes.draw do
 		post 'operate', :on => :collection
 		get 'self', :on => :collection
 		post 'self', :on => :collection
+		get 'email', :on => :member
 	end
 
 	resources :enrollments
 
 	resources :exams
 	resources :users
-
-	post "sessions/create"
-
-	get "sessions/new"
-
-	get "sessions/destroy"
+	resources :sessions do
+		get 'delete' => "sessions#destroy", :on => :collection
+	end	
 
 	# The priority is based upon order of creation:
 	# first created -> highest priority.

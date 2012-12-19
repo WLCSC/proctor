@@ -1,3 +1,5 @@
+require 'fileutils'
+
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
@@ -22,10 +24,22 @@ def ruby_compare_symbol name
   end
   
   def check_for_user
-    redirect_to '/' unless current_user
+    redirect_to root_path unless current_user
   end
   
   def check_for_admin
-    redirect_to '/' unless current_user && current_user.admin?
+    redirect_to root_path unless current_user && current_user.admin?
   end
+
+	def self_locked?
+		File.exist?(Rails.root.join('.lockFile').to_s)
+	end
+
+	def self_lock
+		FileUtils.touch Rails.root.join('.lockFile').to_s
+	end
+
+	def self_unlock
+		File.delete Rails.root.join('.lockFile').to_s
+	end
 end

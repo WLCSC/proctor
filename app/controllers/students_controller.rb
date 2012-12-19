@@ -179,6 +179,12 @@ class StudentsController < ApplicationController
 				render 'report/unpaid'
 			end
 
+			if params[:op] == 'email_on'
+				@students.each do |s|
+					Mailman.enroll(s).deliver
+				end
+			end
+
 			unless @redirect
 				flash[:notice] = @messages.join("<br/>").html_safe if @messages.length > 0
 				redirect_to students_path 
@@ -187,33 +193,39 @@ class StudentsController < ApplicationController
 
 	end
 
+	def email
+		@student = Student.find(params[:id])
+		Mailman.enroll(@student).deliver
+		redirect_to @student, :notice => "Mail sent."
+	end
+
 	def self
 		redirect_to root_path, :notice => "The administrator has disabled self-enrollment." unless APP_CONFIG[:exam_self_enroll]
-		
+		redirect_to root_path, :notice => "Enrollment has been closed." if self_locked?
+
 		@exams = Exam.all
 		if params[:student_name]
-			if APP_CONFIG[:exam_self_create]
-				if APP_CONFIG[:exam_self_remove]
-					@student = Student.find_or_create_by_name(params[:student_name])
-					@student.balance ||= 0
-				else
-					if @student = Student.where(:name => params[:student_name]).first && params[:exam].empty?
-						redirect_to root_path, :notice => 'You are unable to re-enter the system.'
-						return
-					end
-				end
-			else
-				@student = Student.where(:name => params[:student_name])
-				redirect_to root_path, :notice => "The administrator has disabled student creation" unless @student
+			@student = Student.where(:name => params[:student_name]).first
+			if !APP_CONFIG[:exam_self_review] && @student && @student.enrollments.count > 0
+				redirect_to root_path, :notice => "The administrator has disabled reviewing your enrollment."
+				return
 			end
-			
+			if APP_CONFIG[:exam_self_create] 
+				@student = Student.find_or_create_by_name(params[:student_name])
+				@student.email = params[:student_email]
+				@student.balance ||= 0
+				@student.save
+			else
+				redirect_to root_path, :notice => "The administrator has disabled student creation"
+			end
+
 			if params[:exam]
 				params[:exam_ids] ||= []
 				enrolls = []
 				removes = []
 				Exam.all.each do |exam|
 					if params[:exam_ids].include? exam.id.to_s
-						enrollment = Enrollment.new(:student_id => @student.id, :exam_id => exam.id)
+						enrollment = Enrollment.new(:student_id => @student.id, :exam_id => exam.id, :alternate => false)
 						if enrollment.save
 							enrolls << enrollment.exam.name
 						else
@@ -236,12 +248,13 @@ class StudentsController < ApplicationController
 					message << "#{@student.name} enrolled in the following: <br/>"
 					message << enrolls
 				end
-				if removes.count > 0
+				if APP_CONFIG[:exam_self_remove] && removes.count > 0
 					removes = enrolls.join("<br/>")
 					message << "#{@student.name} left the following: <br/>"
 					message << removes
 				end
 				redirect_to root_path, :notice => message.html_safe
+				Mailman.enroll(@student).deliver
 			end
 		else
 			@student = nil
