@@ -1,0 +1,26 @@
+<% if APP_CONFIG[:exam_self_enroll] %>
+	<%= form_tag report_lock_path do %>
+		<% if @locked %>
+			<div class="alert"><h4>Self Enrollment is currently disabled</h4></div>
+			<%= submit_tag "Unlock Self Enrollment Section", :class => 'btn btn-large btn-success' %>
+		<% else %>
+			<div class="alert alert-success"><h4>Self Enrollment is currently enabled</h4></div>
+			<%= submit_tag "Lock Self Enrollment Section", :class => 'btn btn-large btn-danger' %>
+		<% end %>
+	<% end %>
+<% else %>
+	<div class="alert alert-error"><h4>Self Enrollment is currently disabled in the config file.</h4></div>
+<% end %>
+
+<h3>Config File Settings</h3>
+<dl>
+	<dt>Self-Enroll</dt>
+	<dd><%= APP_CONFIG[:exam_self_enroll] %></dd>
+	<dt>Self-Create</dt>
+	<dd><%= APP_CONFIG[:exam_self_create] %></dd>
+	<dt>Self-Remove</dt>
+	<dd><%= APP_CONFIG[:exam_self_remove] %></dd>
+	<dt>Self-Review</dt>
+	<dd><%= APP_CONFIG[:exam_self_review] || "false" %></dd>
+</dl>
+

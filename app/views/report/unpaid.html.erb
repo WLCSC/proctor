@@ -1,5 +1,5 @@
 <div class="form-actions">
-	<%= form_tag '/report/unpaid' do %>
+	<%= form_tag report_unpaid_path do %>
 		<%= hidden_field_tag :student_ids, @students.map{|s| s.id} %>
 		<table>
 			<tr>

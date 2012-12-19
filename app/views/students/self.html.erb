@@ -1,41 +1,76 @@
 <% if @student %>
-	<h1>Exams for <%= @student.name %></h1>
+	<h1><%= APP_CONFIG[:site_title] %> - Self Enrollment</h1>
+	<table class="table">
+		<tr>
+			<td width="40%">
+				<%= label_tag :name %>
+				<%= text_field_tag :student_name, @student.name, :readonly => true %>
+				<%= label_tag :email %>
+				<%= text_field_tag :student_email, @student.email, :readonly => true %><br/>
+			</td>
+			<td>
+				<p>Please select a session from the table below.</p>
+			</td>
+		</tr>
+	</table>
 	<%= form_tag self_students_path do %>
 		<%= hidden_field_tag :student_name, @student.name %>
-	<table class="table table-condensed table-bordered table-striped">
-		<thead>
-			<th width="3%"><%= check_box_tag :exam, true, :disabled => true %></th>
-			<th width="27%">Exam</th>
-			<th width="22%">Date</th>
-			<th width="8%">Session</th>
-			<th width="5%">Cost</th>
-			<th>Students</th>
-			<th>Limit</th>
-			<th>Description</th>
-		</thead>
-		<% @exams.each do |exam| %>
-			<tr <%= 'style="background-color: #999; color: #555;"'.html_safe if exam.enrollments.count >= exam.limit && exam.limit != 0 %>>
-				<% @exam = exam %>
-				<td><%= check_box_tag :exam_ids, exam.id, @student.exams.include?(exam) %></td> 
-				<td><%= @exam.name %></td>
-				<td><%= nice_date @exam.date %></td>
-				<td><%= @exam.session %></td>
-				<td><%= dollars @exam.cost %></td>
-				<td><%= @exam.enrollments.count %></td>
-				<td><%= @exam.limit == 0 ? "None" : @exam.limit %></td>
-				<td><%= markdown @exam.description %></td>
-			</tr>
-		<% end %>
-	</table>
-
-	<%= submit_tag "Submit Enrollment", :class => "btn btn-large btn-warning" %>
-	<%= link_to "Log Out", self_students_path, :class => 'btn btn-large btn-inverse' %>
-<% end %>
+		<%= hidden_field_tag :student_email, @student.email %>
+		<table class="table table-condensed table-bordered table-striped">
+			<thead>
+				<th width="3%"><%= check_box_tag :exam, true, :disabled => true %></th>
+				<th width="27%">Exam</th>
+				<th width="5%">Cost</th>
+				<th width="5%">Students</th>
+				<th>Limit</th>
+				<th>Description</th>
+			</thead>
+			<% @exams.each do |exam| %>
+				<tr <%= 'style="background-color: #999; color: #555;"'.html_safe if exam.enrollments.count >= exam.limit && exam.limit != 0 %>>
+					<% @exam = exam %>
+					<td>
+						<%= unless exam.enrollments.count >= exam.limit && exam.limit != 0 %>
+						<% if APP_CONFIG[:exam_self_multiple] %>
+							<%= ckeck_box_tag(:exam_ids, exam.id, @student.exams.include?(exam)) %>
+						<% else %>
+							<%= radio_button_tag(:exam_ids, exam.id, @student.exams.include?(exam)) %>
+						<% end %>
+					</td> 
+					<td><%= @exam.name %><%= '<span style="color: #f00; font-weight: bold"> - FULL</span>'.html_safe if exam.enrollments.count >= exam.limit && exam.limit != 0%></td>
+					<td><%= dollars @exam.cost %></td>
+					<td><%= @exam.enrollments.count %></td>
+					<td><%= @exam.limit == 0 ? "None" : @exam.limit %></td>
+					<td><%= markdown @exam.description %></td>
+				</tr>
+			<% end %>
+		</table>
+		<%= submit_tag "Submit Enrollment", :class => "btn btn-large btn-success" %>
+		<%= link_to "Cancel", root_path, :class => 'btn btn-large btn-inverse' %>
+	<% end %>
 
 <% else %>
-	<%= form_tag self_students_path do %>
-		<%= label_tag :name %>
-		<%= text_field_tag :student_name %>
-		<%= submit_tag "OK", :class => 'btn btn-large' %>
-	<% end %>
+	<h1>Robotics sign up</h1>
+	<table class="table">
+		<tr>
+			<td width="40%">
+				<%= form_tag self_students_path do %>
+					<% if APP_CONFIG[:exam_self_validate_ldap] %>
+					<%= label_tag :username %>
+					<%= text_field_tag :student_username %>
+					<%= label_tag :password %>
+					<%= text_field_tag :student_password %>
+					<% else %>
+					<%= label_tag :name %>
+					<%= text_field_tag :student_name %>
+					<%= label_tag :email %>
+					<%= text_field_tag :student_email %><br/>
+				<% end %>
+					<%= submit_tag "Continue", :class => 'btn btn-large btn-primary' %>
+				<% end %>
+			</td>
+			<td>
+				<p>Please enter your student's first &amp; last name and a valid email address in the form to the left.</p>
+			</td>
+		</tr>
+	</table>
 <% end %>

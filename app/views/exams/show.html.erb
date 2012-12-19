@@ -16,7 +16,11 @@
   <dt><strong>Cost:</strong></dt>
   <dd><%= dollars (@exam.cost || 0) %></dd>
   <dt><strong>Discount Cost:</strong></dt>
-  <dd><%= dollars @exam.discount %></dd>
+	<dd><%= dollars @exam.discount %></dd>
+	<% if APP_CONFIG[:exam_self_enroll] %>
+  <dt><strong>Self-Enrollable?</strong></dt>
+	<dd><%= truthy_thumb @exam.self_enrollable %></dd>
+  <% end %>
   <dt><strong>Enrolled:</strong></dt>
   <dd><%= @exam.enrollments.length %></dd>
   <dt><strong>Attending:</strong></dt>

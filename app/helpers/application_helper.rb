@@ -13,7 +13,7 @@ module ApplicationHelper
   end
 
   def nice_datetime d
-	d.strftime("%I:%M %p %m-%d-%Y")
+	d.strftime("%I:%M:%S %p %m-%d-%Y")
   end
 
   def tabify list

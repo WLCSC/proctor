@@ -36,6 +36,17 @@
 	    <span style="color: #666;">Uncheck this for conflict sessions</span>
     </div>
 	</div>
+	<% if APP_CONFIG[:exam_self_enroll] %>
+	<div class="control-group">
+    <%= f.label :self_enrollable, :class => 'control-label' %>
+    <div class="controls">
+	    <%= f.check_box :self_enrollable, :checked => true %>
+	    <span style="color: #666;">Uncheck this to disable self-enrollment for this exam</span>
+    </div>
+	</div>
+<% else %>
+	<%= f.hidden_field :self_enrollable, :value => false %>
+<% end %>
 	<div class="control-group">
     <%= f.label :limit, "Enrollment Limit (0 for none)", :class => 'control-label' %>
     <div class="controls">

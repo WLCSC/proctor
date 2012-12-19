@@ -50,7 +50,8 @@
 			<th width="35%">Exam</th>
 			<th width="10%">Cost</th>
 			<th>Repeat?</th>
-			<th width="40%">Comment</th>
+			<th>Timestamp</th>
+			<th>Comment</th>
 			<th>Actions</th>
 		</thead>
 		<tbody>
@@ -59,12 +60,15 @@
 					<td><%= link_to e.exam.name, e.exam %><%= (' ' + i('time')).html_safe if e.alternate %><%= (' ' + i('asterisk')).html_safe unless e.exam.real %><%= i('flag') if e.discount %></td>
 					<td><%= number_to_currency(e.discount ? e.exam.discount : e.exam.cost) %></td>
 					<td><%= truthy_thumb e.repeated %></td>
+					<td><%= nice_datetime e.created_at %></td>
 					<td><%= e.comment %></td>
 					<td><%= link_to "Unenroll", e, :method => "delete", :confirm => "Are you sure you want to unenroll #{@student.name} from #{e.exam.name} & refund any associated exam fees?", :class => 'btn btn-mini btn-danger' %></td>
 				</tr>
 			<% end %>
 		</tbody>
 	</table>
+
+	<%= link_to "Send Enrollment Email", email_student_path(@student), :class => 'btn btn-warning' %>
 <% end %>
 
 <% content_for :enroll do %>
@@ -106,6 +110,10 @@
 		<tr>
 			<td>Name</td>
 			<td><%= @student.name %></td>
+		</tr>
+		<tr>
+			<td>Email</td>
+			<td><%= @student.email %></td>
 		</tr>
 		<tr>
 			<td>Balance</td>

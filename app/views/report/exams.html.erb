@@ -1,13 +1,13 @@
 <div class="form-actions">
-	<%= form_tag '/report/exams' do %>
+	<%= form_tag report_exams_path do %>
 		<table>
 			<tr>
 				<td>
-					<%= label_tag :top, "Stuff above student list" %>
+					<%= label_tag :top, "Stuff above exam list" %>
 					<%= text_area_tag :top, @top %><br/>
 				</td>
 				<td>
-					<%= label_tag :bottom, "Stuff under student list" %>
+					<%= label_tag :bottom, "Stuff under exam list" %>
 					<%= text_area_tag :bottom, @bottom %><br/>
 				</td>
 				<td>

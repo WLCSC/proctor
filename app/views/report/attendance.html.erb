@@ -1,5 +1,5 @@
 <div class="form-actions">
-	<%= form_tag '/report/attendance' do %>
+	<%= form_tag report_attendance_path do %>
 		<table>
 			<tr>
 				<td>
@@ -54,9 +54,9 @@
 		<th>Enrollment Date</th>
 	</thead>
 	<tbody>
-		<% @exam.enrollments.where(:alternate => false).each do |e| %>
+		<% @exam.enrollments.each do |e| %>
 		<tr>
-			<td><%= e.student.name %></td>
+			<td><%= e.student.name %> <% i('clock') if e.alternate %></td>
 			<td><%= e.comment %></td>
 			<td><%= nice_datetime e.created_at %></td>
 		</tr>

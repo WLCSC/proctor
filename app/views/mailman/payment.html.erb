@@ -1,0 +1,23 @@
+<p><%= @student.name %>,</p>
+
+<p>A payment has been added to your account:</p>
+<% if @student.payments.count > 0 %>
+	<table border="1">
+		<tr>
+			<th>Comment</th>
+			<th>Amount</th>
+			<th>Timestamp</th>
+		</tr>
+		<% @student.payments.each do |p| %>
+			<tr>
+				<td><%= p.comment %></td>
+				<td><%= dollars p.change %></td>
+				<td><%= nice_datetime p.created_at %></td>
+			</tr>
+		<% end %>
+	</table>
+<% else %>
+	<p><i>You have no payments associated with your account</i></p>
+<% end %>
+
+<p>You currently owe <%= dollars -@student.balance %>.</p>
