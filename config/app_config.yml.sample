@@ -1,4 +1,4 @@
-development:
+proctor:
 	#do you want to use ldap authentication?
   auth_ldap: true
 	#do you want to use local user authentication?
@@ -20,12 +20,13 @@ development:
 	exam_self_enroll: true
 	#can students who don't exist yet add themselves to the system?
 	exam_self_create: true
-  
-test:
-  domain: test.host
-
-production:
-  domain: example.com
-
-  
-  
+	#can students remove themselves from exams?
+	exam_self_remove: false
+	#can students get back in to see what they're enrolled in?
+	exam_self_review: false
+	#can students enroll in more than 1 exam?
+	exam_self_multiple:true
+	#check students against LDAP?
+	exam_self_ldap_validate: true
+	#site title
+	site_title: Proctor

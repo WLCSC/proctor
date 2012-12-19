@@ -195,8 +195,12 @@ class StudentsController < ApplicationController
 
 	def email
 		@student = Student.find(params[:id])
+		if @student.email
 		Mailman.enroll(@student).deliver
 		redirect_to @student, :notice => "Mail sent."
+		else
+			redirect_to @student, :notice => "No email address for student."
+		end
 	end
 
 	def self

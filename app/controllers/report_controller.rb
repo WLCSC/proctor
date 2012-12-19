@@ -1,7 +1,7 @@
 class ReportController < ApplicationController
 	skip_before_filter :check_for_user, :only => :index
   def index
-		@exams = Exam.where(:self_enrollable => true)
+		@exams = Exam.all
 		@locked = self_locked?
   end
 

@@ -1,6 +1,5 @@
 <div class="well" style="text-align: right;">
-	<h1>Proctor</h1>
-	<h4>Enrollment Management</h4>
+	<h1><%= APP_CONFIG[:site_title] || "Proctor" %></h1>
 
 	<table class="table">
 		<tr>
@@ -22,19 +21,19 @@
 		</tr>
 	</table>
 
-	<table class="table table-condensed table-bordered table-striped">
+	<table class="table table-condensed table-bordered">
 		<thead>
-			<th colspan="5" style="text-align: center;"><h3>Sessions</h3></th>
+			<th colspan="5" style="text-align: center;"><h3>Exams</h3></th>
 		</thead>
 		<thead>
-			<th width="27%">Session</th>
+			<th width="27%">Exam</th>
 			<th width="5%">Cost</th>
 			<th width="5%">Students</th>
 			<th>Limit</th>
 			<th>Description</th>
 		</thead>
 		<% @exams.each do |exam| %>
-			<tr <%= 'style="background-color: #999; color: #555;"'.html_safe if exam.enrollments.count >= exam.limit && exam.limit != 0 %>>
+			<tr <%= 'style="background-color: #999; color: #555;"'.html_safe if (exam.enrollments.count >= exam.limit && exam.limit != 0) || (!exam.self_enrollable && APP_CONFIG[:exam_self_enroll]) %>>
 				<% @exam = exam %>
 				<td><%= @exam.name %><%= '<span style="color: #f00; font-weight: bold"> - FULL</span>'.html_safe if exam.enrollments.count >= exam.limit && exam.limit != 0%></td>
 				<td><%= dollars @exam.cost %></td>

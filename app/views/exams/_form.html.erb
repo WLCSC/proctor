@@ -45,7 +45,7 @@
     </div>
 	</div>
 <% else %>
-	<%= f.hidden_field :self_enrollable, false %>
+	<%= f.hidden_field :self_enrollable, :value => false %>
 <% end %>
 	<div class="control-group">
     <%= f.label :limit, "Enrollment Limit (0 for none)", :class => 'control-label' %>

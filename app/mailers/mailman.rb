@@ -4,11 +4,15 @@ class Mailman < ActionMailer::Base
 
 	def enroll student
 		@student = student
+		if @student.email
 		mail :to => @student.email, :subject => "Robotics sign up confirmation"
+		end
 	end
 	
 	def payment student
 		@student = student
+		if @student.email
 		mail :to => @student.email, :subject => "Robotics payment"
+		end
 	end
 end
