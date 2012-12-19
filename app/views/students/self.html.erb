@@ -36,7 +36,7 @@
 							<%= radio_button_tag(:exam_ids, exam.id, @student.exams.include?(exam)) %>
 						<% end %>
 					</td> 
-					<td><%= @exam.name %><%= '<span style="color: #f00; font-weight: bold"> - FULL</span>'.html_safe if exam.enrollments.count >= exam.limit && exam.limit != 0%></td>
+					<td><%= @exam.name %><%= '<span style="color: #f00; font-weight: bold"> - FULL</span>'.html_safe if ((exam.enrollments.count >= exam.limit) && (exam.limit != 0)) %></td>
 					<td><%= dollars @exam.cost %></td>
 					<td><%= @exam.enrollments.count %></td>
 					<td><%= @exam.limit == 0 ? "None" : @exam.limit %></td>
