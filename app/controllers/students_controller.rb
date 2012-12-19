@@ -181,7 +181,7 @@ class StudentsController < ApplicationController
 
 			if params[:op] == 'email_on'
 				@students.each do |s|
-					Mailman.enroll(s).deliver
+					Mailman.enroll(s).deliver if s.email
 				end
 			end
 
@@ -258,7 +258,7 @@ class StudentsController < ApplicationController
 					message << removes
 				end
 				redirect_to root_path, :notice => message.html_safe
-				Mailman.enroll(@student).deliver
+				Mailman.enroll(@student).deliver if @student.email
 			end
 		else
 			@student = nil

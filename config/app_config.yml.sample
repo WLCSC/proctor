@@ -30,3 +30,5 @@ proctor:
 	exam_self_ldap_validate: true
 	#site title
 	site_title: Proctor
+	#your word for exam
+	site_exam: exam
