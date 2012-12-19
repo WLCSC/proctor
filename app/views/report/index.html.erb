@@ -1,20 +1,23 @@
 <div class="well" style="text-align: right;">
-	<h1>Robotics Sign Up</h1>
+	<h1>Proctor</h1>
+	<h4>Enrollment Management</h4>
 
 	<table class="table">
 		<tr>
+			<% if APP_CONFIG[:exam_self_enroll] %>
 			<% if @locked %>
-				<td><%= link_to "Sign Up is Closed", root_path, :class => 'btn btn-large btn-danger btn-block disabled' %></td>
+				<td><%= link_to "Self-Enrollment is Closed", root_path, :class => 'btn btn-large btn-danger btn-block disabled' %></td>
 			<% else %>
-				<td><%= link_to "Sign Up Here", self_students_path, :class => 'btn btn-large btn-primary btn-block' %></td>
+				<td><%= link_to "Self-Enroll Here", self_students_path, :class => 'btn btn-large btn-primary btn-block' %></td>
 			<% end %>
+		<% end %>
 			<% if !current_user %><td><%= link_to "Manager Log In", new_session_path, :class => 'btn btn-large btn-inverse btn-block' %></td><% end %>
 			<% if current_user %>
 			<td><%= link_to "Exam List", exams_path, :class => 'btn btn-large btn-info btn-block' %></td>
 			<td><%= link_to "Enrollment Counts", report_attendance_path, :class => 'btn btn-large btn-success btn-block' %></td>
 			<td><%= link_to "Student List", students_path, :class => 'btn btn-large btn-warning btn-block' %></td>
 			<td><%= link_to "Managers", users_path, :class => 'btn btn-large btn-inverse btn-block' %></td>
-			<td><%= link_to "Lock/Unlock", report_lock_path, :class => 'btn btn-large btn-danger btn-block' %></td>
+			<td><%= link_to("Lock/Unlock", report_lock_path, :class => 'btn btn-large btn-danger btn-block') if APP_CONFIG[:exam_self_enroll] %></td>
 			<% end %>
 		</tr>
 	</table>
