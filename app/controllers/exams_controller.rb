@@ -2,7 +2,7 @@ class ExamsController < ApplicationController
   # GET /exams
   # GET /exams.json
   def index
-    @exams = Exam.all
+    @exams = Exam.order("date ASC, session ASC").all
 
     respond_to do |format|
       format.html # index.html.erb

@@ -68,7 +68,7 @@
 		</tbody>
 	</table>
 
-	<%= link_to "Send Enrollment Email", email_student_path(@student), :class => 'btn btn-warning' %>
+	<%= link_to("Send Enrollment Email", email_student_path(@student), :class => 'btn btn-warning') if @student.email %>
 <% end %>
 
 <% content_for :enroll do %>
@@ -76,7 +76,7 @@
 		<%= f.hidden_field :student_id, :value => @student.id %>
 		<p>
 		<%= f.label :exam %>
-		<%= f.select :exam_id, Exam.all.map{|e| [e.name, e.id]} %>
+		<%= f.select :exam_id, Exam.order("date ASC, session ASC").all.map{|e| [e.name, e.id]} %>
 		</p>
 		<p>
 		<%= f.label :comment %>
@@ -138,6 +138,7 @@
 	</table>
 
 	<%= link_to "Edit", edit_student_path(@student), :class => 'btn btn-primary' %>
+	
 <% end %>
 
 <div class="page-header">
@@ -147,7 +148,21 @@
 <%= tabify :payments => "Payments", :charge => "Charge", :exams => "Exams", :enroll => "Enroll", :demographics => 'Info' %>
 
 <%= symbol_key %>
-
+<div class="pull-left noprint">
+<%= form_tag operate_students_path do %>
+		<%= hidden_field_tag :student_id, @student.id %>
+		<%= hidden_field_tag :op, :schedules_on %>
+		<%= submit_tag "Print Schedule", :class => "btn btn-success" %>
+	<% end %>
+</div>
+<div class="pull-left noprint">
+	<%= form_tag operate_students_path do %>
+		<%= hidden_field_tag :student_id, @student.id %>
+		<%= hidden_field_tag :op, :bill_on %>
+		<%= submit_tag "Print Receipt", :class => "btn btn-warning" %>
+	<% end %>
+</div>
+<div class="clearfix"></div>
 <div class="form-actions">
   <%= link_to "Delete Student",
               student_path(@student),

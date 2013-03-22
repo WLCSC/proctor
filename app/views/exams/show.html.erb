@@ -45,7 +45,7 @@
 		<th>Enrollment Date</th>
 	</thead>
 	<tbody>
-	<% @exam.enrollments.each do |e| %>
+		<% @exam.enrollments.sort{|a,b| a.student.name <=> b.student.name}.each do |e| %>
 		<tr>
 			<td><%= truthy_thumb !e.alternate %></td>
 			<td><%= link_to e.student.name, e.student %></td>
