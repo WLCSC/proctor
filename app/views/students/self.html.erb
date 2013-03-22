@@ -29,11 +29,12 @@
 				<tr <%= 'style="background-color: #999; color: #555;"'.html_safe if exam.enrollments.count >= exam.limit && exam.limit != 0 %>>
 					<% @exam = exam %>
 					<td>
-						<%= unless exam.enrollments.count >= exam.limit && exam.limit != 0 %>
-						<% if APP_CONFIG[:exam_self_multiple] %>
-							<%= ckeck_box_tag(:exam_ids, exam.id, @student.exams.include?(exam)) %>
-						<% else %>
-							<%= radio_button_tag(:exam_ids, exam.id, @student.exams.include?(exam)) %>
+						<% if !( exam.enrollments.count >= exam.limit && exam.limit != 0) %>
+							<% if APP_CONFIG[:exam_self_multiple] %>
+								<%= check_box_tag(:exam_ids, exam.id, @student.exams.include?(exam)) %>
+							<% else %>
+								<%= radio_button_tag(:exam_ids, exam.id, @student.exams.include?(exam)) %>
+							<% end %>
 						<% end %>
 					</td> 
 					<td><%= @exam.name %><%= '<span style="color: #f00; font-weight: bold"> - FULL</span>'.html_safe if ((exam.enrollments.count >= exam.limit) && (exam.limit != 0)) %></td>
@@ -55,16 +56,16 @@
 			<td width="40%">
 				<%= form_tag self_students_path do %>
 					<% if APP_CONFIG[:exam_self_validate_ldap] %>
-					<%= label_tag :username %>
-					<%= text_field_tag :student_username %>
-					<%= label_tag :password %>
-					<%= text_field_tag :student_password %>
+						<%= label_tag :username %>
+						<%= text_field_tag :student_username %>
+						<%= label_tag :password %>
+						<%= text_field_tag :student_password %>
 					<% else %>
-					<%= label_tag :name %>
-					<%= text_field_tag :student_name %>
-					<%= label_tag :email %>
-					<%= text_field_tag :student_email %><br/>
-				<% end %>
+						<%= label_tag :name %>
+						<%= text_field_tag :student_name %>
+						<%= label_tag :email %>
+						<%= text_field_tag :student_email %><br/>
+					<% end %>
 					<%= submit_tag "Continue", :class => 'btn btn-large btn-primary' %>
 				<% end %>
 			</td>

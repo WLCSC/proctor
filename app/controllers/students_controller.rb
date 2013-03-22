@@ -216,7 +216,7 @@ class StudentsController < ApplicationController
 			end
 			if APP_CONFIG[:exam_self_create] 
 				@student = Student.find_or_create_by_name(params[:student_name])
-				@student.email = params[:student_email]
+				@student.email = params[:student_email].strip
 				@student.balance ||= 0
 				@student.save
 			else
