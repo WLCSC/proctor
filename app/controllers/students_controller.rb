@@ -3,7 +3,7 @@ class StudentsController < ApplicationController
 	# GET /students
 	# GET /students.json
 	def index
-		@students = params[:student_ids] ? Student.find(params[:student_ids]) : Student.all 
+		@students = (params[:student_ids] ? Student.find(params[:student_ids]).order("name") : Student.order("name").all )
 
 		respond_to do |format|
 			format.html # index.html.erb
@@ -137,7 +137,7 @@ class StudentsController < ApplicationController
 
 			render :index
 		else
-			@students = Student.find(params[:student_ids])
+			@students = (params[:student_ids] ? Student.find(params[:student_ids]) : [Student.find(params[:student_id])])
 			@redirect = false
 			total = @students.length
 			@messages = []

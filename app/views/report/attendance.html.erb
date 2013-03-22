@@ -54,7 +54,7 @@
 		<th>Enrollment Date</th>
 	</thead>
 	<tbody>
-		<% @exam.enrollments.each do |e| %>
+		<% @exam.enrollments.sort{|a,b| a.student.name <=> b.student.name}.each do |e| %>
 		<tr>
 			<td><%= e.student.name %> <% i('clock') if e.alternate %></td>
 			<td><%= e.comment %></td>

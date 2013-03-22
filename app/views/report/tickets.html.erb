@@ -19,7 +19,7 @@
 
 <% @students.each do |student| %>
 	<% @student = student %>
-	<table class="table table-bordered">
+	<table class="table">
 		<tr>
 			<td width="50%">
 				<h3><%= @student.name %></h3>
@@ -31,37 +31,32 @@
 		</tr>
 	</table>
 
-	<table class="table table-striped table-condensed">
-		<th width="40%">Exam</th>
-		<th>Comments</th>
-		<% @student.enrollments.each do |e| %>
+	<table class="table table-condensed table-bordered">
+		<% @student.exams.in_groups_of(3).each do |group| %>
 			<tr>
-				<td rowspan="2">
-					<h4><%= e.exam.name %></h4>
-					<dl class="dl-horizontal">
-						<dt><strong>Date:</strong></dt>
-						<dd><%= nice_date e.exam.date %></dd>
-						<dt><strong>Session:</strong></dt>
-						<dd><%= e.exam.session %></dd>
-					</dl>	
-				</td>
-				<td>
-					<%= markdown e.exam.description %>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<%= e.comment %>
-				</td>
-			</tr>
+				<% group.each do |e| %>
+					<td width="25%">
+						<% if e %>
+							<h4><%= e.name %></h4>
+							<dl class="dl-horizontal">
+								<dt><strong>Date:</strong></dt>
+								<dd><%= nice_date e.date %></dd>
+								<dt><strong>Session:</strong></dt>
+								<dd><%= e.session %></dd>
+							</dl>
+						<%= markdown (e.description)  %>
+						<% end %>
+						</td>
+						<% end %>
+					</tr>
+				<% end %>
+			</table>
+
+			<%= markdown @bottom %>
+
+			<div class="break"></div>
 		<% end %>
-	</table>
 
-	<%= markdown @bottom %>
-
-	<div class="break"></div>
-<% end %>
-
-<p>Generated <%= @students.length %> tickets.</p>
+		<p>Generated <%= @students.length %> tickets.</p>
 
 
