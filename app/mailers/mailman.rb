@@ -1,5 +1,5 @@
 class Mailman < ActionMailer::Base
-  default from: "scheduler@wl.k12.in.us"
+  default from: "brantleyd@wl.k12.in.us"
 	add_template_helper ApplicationHelper
 
 	def enroll student

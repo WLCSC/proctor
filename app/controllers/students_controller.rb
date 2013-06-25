@@ -258,7 +258,7 @@ class StudentsController < ApplicationController
 					message << removes
 				end
 				redirect_to root_path, :notice => message.html_safe
-				Mailman.enroll(@student).deliver if @student.email
+				Mailman.enroll(@student).deliver if @student.email && !@student.email.empty?
 			end
 		else
 			@student = nil
