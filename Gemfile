@@ -1,12 +1,14 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.2'
+gem 'rails', '3.2.13'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
 gem 'ruby-ntlm'
+gem 'resque'
+gem 'resque_mailer'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -46,3 +48,4 @@ gem "exception_notification", :require => "exception_notifier"
 gem "bluecloth"
 gem "mysql2"
 gem 'jquery-datatables-rails'
+gem 'less-rails'

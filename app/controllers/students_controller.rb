@@ -181,7 +181,7 @@ class StudentsController < ApplicationController
 
 			if params[:op] == 'email_on'
 				@students.each do |s|
-					Mailman.enroll(s).deliver if s.email
+					Mailman.enroll(s.id).deliver if s.email
 				end
 			end
 
@@ -196,7 +196,7 @@ class StudentsController < ApplicationController
 	def email
 		@student = Student.find(params[:id])
 		if @student.email
-		Mailman.enroll(@student).deliver
+		Mailman.enroll(@student.id).deliver
 		redirect_to @student, :notice => "Mail sent."
 		else
 			redirect_to @student, :notice => "No email address for student."
@@ -258,12 +258,10 @@ class StudentsController < ApplicationController
 					message << removes
 				end
 				redirect_to root_path, :notice => message.html_safe
-				Mailman.enroll(@student).deliver if @student.email && !@student.email.empty?
+				Mailman.enroll(@student.id).deliver if @student.email && !@student.email.empty?
 			end
 		else
 			@student = nil
 		end
-
-
 	end
 end

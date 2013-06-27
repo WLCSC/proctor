@@ -1,6 +1,6 @@
 <p><%= @student.name %>,</p>
 
-<p>A payment has been added to your account:</p>
+<p>A payment has been posted to your account:</p>
 <% if @student.payments.count > 0 %>
 	<table border="1">
 		<tr>
@@ -20,4 +20,10 @@
 	<p><i>You have no payments associated with your account</i></p>
 <% end %>
 
-<p>You currently owe <%= dollars -@student.balance %>.</p>
+<% if @student.balance > 0 %>
+        <p>We currently owe you <%= dollars @student.balance %>.</p>
+<% end %>
+
+<% if @student.balance < 0 %>
+        <p>You currently owe <%= dollars -@student.balance %>.</p>
+<% end %>
