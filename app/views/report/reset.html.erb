@@ -1,5 +1,6 @@
 <h1>Application Data Reset</h1>
 <p>This will remove all students &amp; exams from the database!!</p>
 <%= form_tag report_reset_path do %>
-	<%= submit_tag 'Wipe all students & exams', :class => 'btn btn-danger btn-large', :confirm => "Really delete all students and exams?" %>
+	<%= submit_tag 'Wipe all students', :class => 'btn btn-danger btn-large', :confirm => "Really delete all students?" %>
+	<%= submit_tag 'Wipe all exams', :class => 'btn btn-danger btn-large', :confirm => "Really delete all exams?" %>
 <% end %>
