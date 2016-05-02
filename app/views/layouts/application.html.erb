@@ -28,13 +28,16 @@
 								<% end %>
 								<% if current_user %>
 									<li class="nav-header"><%= link_to "Reporting", root_path %></li>
-									<li><%= link_to "Generate Schedules", report_tickets_path %></li>
+									<li><%= link_to "Student Tickets", report_tickets_path %></li>
+									<li><%= link_to "Supervisor Tickets", report_supervisors_path %></li>
 									<li><%= link_to "Attendance Lists", report_attendance_path %></li>
 									<li><%= link_to "Unpaid Students", report_unpaid_path %></li>
 									<li><%= link_to "Exam List", report_exams_path %></li>
 									<li class="divider"></li>
 									<li class="nav-header"><%= link_to "Exams", exams_path %></li>
 									<li><%= link_to("Lock/Unlock Self Enrollment", report_lock_path) if APP_CONFIG[:exam_self_enroll]%></li>
+									<li class="divider"></li>
+									<li class="nav-header"><%= link_to "Supervisors", supervisors_path %></li>
 									<li class="divider"></li>
 									<li class="nav-header"><%= link_to "Students", students_path %></li>
 									<li><%= link_to "Import Students", import_students_path %></li>

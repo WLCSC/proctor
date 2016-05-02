@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.13'
+gem 'rails', '3.2.21'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -42,9 +42,8 @@ gem 'bcrypt-ruby', '~> 3.0.0', :require => 'bcrypt'
 gem "therubyracer"
 gem "execjs"
 gem "net-ldap"
-gem "jquery-rails"
 gem "twitter-bootstrap-rails"
-gem "exception_notification", :require => "exception_notifier"
+gem "exception_notification"
 gem "bluecloth"
 gem "mysql2"
 gem 'jquery-datatables-rails'

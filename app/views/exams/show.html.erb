@@ -3,7 +3,7 @@
 </div>
 <table class="table table-bordered">
 	<tr>
-		<td valign="top" width="45%">
+		<td valign="top" width="40%">
 <dl class="dl-horizontal">
   <dt><strong>Name:</strong></dt>
   <dd><%= @exam.name %></dd>
@@ -30,10 +30,16 @@
 
 </dl>
 		</td>
-		<td valign="top">
+		<td valign="top" width="30%">
 <p><strong>Description:</strong><br/>
 <%= markdown @exam.description %></p>
 </td>
+<td valign="top">
+<p><strong>Supervisor: </strong> <%= @exam.supervisor ? @exam.supervisor.name : '-' %></p>
+<p><strong>Supervisor Info:</strong><br/>
+<%= markdown @exam.supervisor_information %></p>
+</td>
+
 </tr>
 </table>
 

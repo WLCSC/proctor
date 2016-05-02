@@ -1,4 +1,7 @@
 Proctor::Application.routes.draw do
+  resources :supervisors
+
+
 	get "enrollments/create"
 
 	get "enrollments/destroy"
@@ -6,6 +9,8 @@ Proctor::Application.routes.draw do
 	get "report/index"
 	get 'report/tickets'
 	post 'report/tickets'
+	get 'report/supervisors'
+	post 'report/supervisors'
 	get 'report/attendance'
 	post 'report/attendance'
 	get 'report/unpaid'

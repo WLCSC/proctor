@@ -6,7 +6,13 @@ class ReportController < ApplicationController
     end
 
     def tickets
-        @students = params[:student_ids] ? Student.where(:id => params[:student_ids]) : Student.all.delete_if{|s| s.exams.length == 0}.sort{|a,b| a.proper <=> b.proper}
+        @students = params[:student_ids] ? Student.where(:id => params[:student_ids]) : Student.all.delete_if{|s| s.exams.length == 0}.sort{|a,b| a.name <=> b.name}
+        @top = params[:top] || nil
+        @bottom = params[:bottom] || nil
+    end
+
+    def supervisors
+        @supervisors = Supervisor.order(:name)
         @top = params[:top] || nil
         @bottom = params[:bottom] || nil
     end

@@ -1,10 +1,9 @@
 <div class="form-actions">
 	<%= form_tag report_tickets_path do %>
-		<%= hidden_field_tag :student_ids, @students.map{|s| s.id} %>
 		<table>
 			<tr>
 				<td>
-					<%= label_tag :top, "Stuff next to name/balance" %>
+					<%= label_tag :top, "Stuff next to name/enrollment" %>
 					<%= text_area_tag :top, @top %><br/>
 				</td>
 				<td>
@@ -17,13 +16,11 @@
 	<% end %>	
 </div>
 
-<% @students.each do |student| %>
-	<% @student = student %>
+<% @supervisors.each do |supervisor| %>
 	<table class="table">
 		<tr>
 			<td style="max-width: 50%;">
-				<h3><%= @student.name %></h3>
-				<% if @student.balance != 0 %><h4>Your current balance is: <%= number_to_currency @student.balance %></h4><% end %>
+				<h3><%= supervisor.name %></h3>
 			</td>
 			<td>
 				<%= markdown @top %>
@@ -32,10 +29,10 @@
 	</table>
 
 	<table class="table table-condensed table-bordered">
-		<% @student.exams.order('date ASC, session ASC').in_groups_of(3).each do |group| %>
+		<% supervisor.exams.order('date ASC, session ASC').in_groups_of(2).each do |group| %>
 			<tr>
 				<% group.each do |e| %>
-					<td width="25%">
+					<td width="50%">
 						<% if e %>
 							<h4><%= e.name %></h4>
 							<dl class="dl-horizontal">
@@ -43,8 +40,12 @@
 								<dd><%= nice_date e.date %></dd>
 								<dt><strong>Session:</strong></dt>
 								<dd><%= e.session %></dd>
+								<dt><strong>Enrollment:</strong></dt>
+								<dd><%= e.enrollments.count %></dd>
 							</dl>
 						<%= markdown (e.description)  %>
+                        <hr/>
+						<%= markdown (e.supervisor_information)  %>
 						<% end %>
 						</td>
 						<% end %>
@@ -57,6 +58,6 @@
 			<div class="break"></div>
 		<% end %>
 
-		<p>Generated <%= @students.length %> tickets.</p>
+		<p>Generated <%= @supervisors.length %> tickets.</p>
 
 

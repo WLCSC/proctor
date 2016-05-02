@@ -16,3 +16,5 @@ config/*.yml
 rerun.txt
 pickle-email-*.html
 .lockfile
+/config/initializers/secret_token.rb
+nohup.out

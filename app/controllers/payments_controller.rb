@@ -41,7 +41,7 @@ class PaymentsController < ApplicationController
     
     respond_to do |format|
       if @payment.save
-				Mailman.payment(@payment.student).deliver if @payment.student.email
+				#Mailman.payment(@payment.student).deliver if @payment.student.email
         format.html { redirect_to @payment.student, notice: 'Payment was successfully created.' }
         format.json { render json: @payment.student, status: :created, location: @payment }
       else

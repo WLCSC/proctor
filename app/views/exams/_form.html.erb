@@ -61,6 +61,20 @@
     </div>
   </div>
 
+  <div class="control-group">
+    <%= f.label :supervisor_information, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :supervisor_information, :class => 'text_area' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :supervisor_id, :class => 'control-label' %>
+    <div class="controls">
+		<%= f.select :supervisor_id, Supervisor.order("name").all.map{|e| [e.name, e.id]} %>
+    </div>
+  </div>
+
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

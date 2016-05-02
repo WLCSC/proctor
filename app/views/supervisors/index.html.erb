@@ -1,0 +1,22 @@
+<%- model_class = Supervisor -%>
+<div class="page-header">
+  <h1>All Supervisors</h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Exams</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @supervisors.each do |supervisor| %>
+      <tr>
+        <td><%= supervisor.name %></td>
+        <td><%= supervisor.exams.count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Add Supervisor", new_supervisor_path, :class => 'btn btn-primary' %>
